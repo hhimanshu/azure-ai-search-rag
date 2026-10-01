@@ -49,9 +49,9 @@ pip install -r requirements.txt
 ./infra/deploy.sh
 ```
 
-This creates a resource group with Azure AI Search, Azure Storage, and an Azure AI Services resource with the model deployments this course needs. It prints a block of settings at the end.
+This creates a resource group with Azure AI Search, Azure Storage, and an Azure AI Services resource with the model deployments this course needs. At the end, the script writes your settings to a `.env` file in the repo root. You do not copy or paste anything.
 
-Copy `.env.example` to `.env`. Paste the printed block into `.env`, replacing the placeholder values.
+If a `.env` file already exists, the script does not change it. It prints the new values instead. To replace the file, run `FORCE_ENV=1 ./infra/deploy.sh`. The script keeps your old file as `.env.bak`.
 
 **Cost note:** the Search service runs on the Basic tier, priced per month. Delete the resource group when you are done with the course:
 
@@ -73,7 +73,7 @@ If a cell fails, fix that error before you continue. Do not skip ahead.
 
 ## 7. Find your values and check your data in the browser
 
-`deploy.sh` prints the `.env` values once. If you lose that output, or you want to see the data with your own eyes, use the browser. Menu labels in Azure change from time to time, so look for the closest match.
+`deploy.sh` writes the `.env` values for you. You only need this section to find a value again, or to see the data with your own eyes in the browser. Menu labels in Azure change from time to time, so look for the closest match.
 
 **Where each `.env` value lives**
 

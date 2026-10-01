@@ -2,7 +2,7 @@
 # Provisions everything Module 2 needs (Search + Storage + AI Services with
 # the embedding deployment for integrated vectorization and OCR), assigns
 # yourself the Entra ID roles the notebooks rely on instead of keys, and
-# prints a ready-to-paste .env block.
+# writes the settings to .env at the repo root, so you do not copy anything.
 #
 # Not provisioned here: a Microsoft Foundry hub/project (Module 3 only,
 # not an M2 dependency) and the chat model deployments (also M3). Add those
@@ -102,10 +102,10 @@ STORAGE_ACCOUNT_URL="https://$STORAGE_NAME.blob.core.windows.net"
 AISERVICES_ENDPOINT="$(az cognitiveservices account show --name "$AISERVICES_NAME" --resource-group "$RESOURCE_GROUP" --query properties.endpoint -o tsv)"
 AISERVICES_KEY="$(az cognitiveservices account keys list --name "$AISERVICES_NAME" --resource-group "$RESOURCE_GROUP" --query key1 -o tsv)"
 
-cat <<EOF
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+ENV_FILE="$REPO_ROOT/.env"
 
-== Done. Paste this into .env (see .env.example) ==
-
+ENV_BLOCK="$(cat <<EOF
 AZURE_SEARCH_ENDPOINT=$SEARCH_ENDPOINT
 AZURE_SEARCH_INDEX_NAME=$INDEX_NAME
 AZURE_STORAGE_ACCOUNT_URL=$STORAGE_ACCOUNT_URL
@@ -118,7 +118,26 @@ AZURE_AI_SERVICES_KEY=$AISERVICES_KEY
 AZURE_SUBSCRIPTION_ID=$SUBSCRIPTION_ID
 AZURE_RESOURCE_GROUP=$RESOURCE_GROUP
 AZURE_LOCATION=$LOCATION
-
-Cost check: Basic Search runs ~\$75/mo prorated. Tear down with:
-  az group delete --name $RESOURCE_GROUP --yes --no-wait
 EOF
+)"
+
+echo
+if [[ -e "$ENV_FILE" && "${FORCE_ENV:-0}" != "1" ]]; then
+  echo "== $ENV_FILE already exists, so it was NOT changed =="
+  echo "Copy these values into it, or re-run with FORCE_ENV=1 (your old file is kept as .env.bak):"
+  echo
+  echo "$ENV_BLOCK"
+else
+  if [[ -e "$ENV_FILE" ]]; then
+    cp "$ENV_FILE" "$ENV_FILE.bak"
+    chmod 600 "$ENV_FILE.bak"
+    echo "Saved your previous .env as .env.bak"
+  fi
+  (umask 077; printf '%s\n' "$ENV_BLOCK" > "$ENV_FILE")
+  echo "== Done. Wrote $ENV_FILE =="
+  echo "You do not need to copy anything. Open the notebooks next."
+fi
+
+echo
+echo "Cost check: Basic Search runs ~\$75/mo prorated. Tear down with:"
+echo "  az group delete --name $RESOURCE_GROUP --yes --no-wait"

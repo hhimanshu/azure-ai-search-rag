@@ -49,8 +49,8 @@ def load_config() -> Config:
         raise RuntimeError(
             "Missing required env vars: "
             + ", ".join(missing)
-            + ". Copy .env.example to .env and fill these in, or re-run infra/deploy.sh "
-            "and paste its output into .env."
+            + ". Run infra/deploy.sh (it writes .env for you), or copy .env.example "
+            "to .env and fill these in."
         )
     return Config(
         search_endpoint=os.environ["AZURE_SEARCH_ENDPOINT"],
