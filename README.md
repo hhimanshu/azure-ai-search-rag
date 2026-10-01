@@ -51,7 +51,7 @@ pip install -r requirements.txt
 
 This creates a resource group with Azure AI Search, Azure Storage, and an Azure AI Services resource with the model deployments this course needs. At the end, the script writes your settings to a `.env` file in the repo root. You do not copy or paste anything.
 
-If a `.env` file already exists, the script does not change it. It prints the new values instead. To replace the file, run `FORCE_ENV=1 ./infra/deploy.sh`. The script keeps your old file as `.env.bak`.
+Run it once. If a deployment already exists (a `.env` file, or a Search service in the resource group), the script stops before it creates anything, so you are not billed twice. To start over, delete the resource group first. To create a second set on purpose, run `FORCE_ENV=1 ./infra/deploy.sh`. The script keeps your old `.env` as `.env.bak`.
 
 **Cost note:** the Search service runs on the Basic tier, priced per month. Delete the resource group when you are done with the course:
 

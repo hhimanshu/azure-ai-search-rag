@@ -23,6 +23,27 @@ AISERVICES_NAME="${AZURE_AISERVICES_NAME:-rag-course-aiservices-$RANDOM}"
 EMBEDDING_DEPLOYMENT="${AZURE_OPENAI_EMBEDDING_DEPLOYMENT:-text-embedding-3-small}"
 INDEX_NAME="${AZURE_SEARCH_INDEX_NAME:-state-driver-manuals}"
 
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+ENV_FILE="$REPO_ROOT/.env"
+
+# Each run makes new, randomly named resources. A Basic Search service bills
+# by the month, so a second run would bill twice. Stop before creating
+# anything if a deployment already exists. FORCE_ENV=1 skips this check.
+if [[ "${FORCE_ENV:-0}" != "1" ]]; then
+  EXISTING_SEARCH="$(az search service list --resource-group "$RESOURCE_GROUP" --query "[].name" -o tsv 2>/dev/null || true)"
+  if [[ -e "$ENV_FILE" || -n "$EXISTING_SEARCH" ]]; then
+    echo "STOP: a deployment already exists, so nothing was created." >&2
+    [[ -e "$ENV_FILE" ]] && echo "  - $ENV_FILE exists." >&2
+    [[ -n "$EXISTING_SEARCH" ]] && echo "  - Search service in $RESOURCE_GROUP: $EXISTING_SEARCH" >&2
+    echo "A second run would create a second Search service and bill you twice." >&2
+    echo "To reuse the existing resources, do nothing: your .env already points to them." >&2
+    echo "To start over, delete the old ones first:" >&2
+    echo "  az group delete --name $RESOURCE_GROUP --yes" >&2
+    echo "To create another set on purpose, run: FORCE_ENV=1 ./infra/deploy.sh" >&2
+    exit 1
+  fi
+fi
+
 echo "== Resource group: $RESOURCE_GROUP ($LOCATION) =="
 az group create --name "$RESOURCE_GROUP" --location "$LOCATION" --output none
 
@@ -102,9 +123,6 @@ STORAGE_ACCOUNT_URL="https://$STORAGE_NAME.blob.core.windows.net"
 AISERVICES_ENDPOINT="$(az cognitiveservices account show --name "$AISERVICES_NAME" --resource-group "$RESOURCE_GROUP" --query properties.endpoint -o tsv)"
 AISERVICES_KEY="$(az cognitiveservices account keys list --name "$AISERVICES_NAME" --resource-group "$RESOURCE_GROUP" --query key1 -o tsv)"
 
-REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-ENV_FILE="$REPO_ROOT/.env"
-
 ENV_BLOCK="$(cat <<EOF
 AZURE_SEARCH_ENDPOINT=$SEARCH_ENDPOINT
 AZURE_SEARCH_INDEX_NAME=$INDEX_NAME
@@ -122,21 +140,14 @@ EOF
 )"
 
 echo
-if [[ -e "$ENV_FILE" && "${FORCE_ENV:-0}" != "1" ]]; then
-  echo "== $ENV_FILE already exists, so it was NOT changed =="
-  echo "Copy these values into it, or re-run with FORCE_ENV=1 (your old file is kept as .env.bak):"
-  echo
-  echo "$ENV_BLOCK"
-else
-  if [[ -e "$ENV_FILE" ]]; then
-    cp "$ENV_FILE" "$ENV_FILE.bak"
-    chmod 600 "$ENV_FILE.bak"
-    echo "Saved your previous .env as .env.bak"
-  fi
-  (umask 077; printf '%s\n' "$ENV_BLOCK" > "$ENV_FILE")
-  echo "== Done. Wrote $ENV_FILE =="
-  echo "You do not need to copy anything. Open the notebooks next."
+if [[ -e "$ENV_FILE" ]]; then
+  cp "$ENV_FILE" "$ENV_FILE.bak"
+  chmod 600 "$ENV_FILE.bak"
+  echo "Saved your previous .env as .env.bak"
 fi
+(umask 077; printf '%s\n' "$ENV_BLOCK" > "$ENV_FILE")
+echo "== Done. Wrote $ENV_FILE =="
+echo "You do not need to copy anything. Open the notebooks next."
 
 echo
 echo "Cost check: Basic Search runs ~\$75/mo prorated. Tear down with:"
