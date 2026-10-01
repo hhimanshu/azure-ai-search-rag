@@ -1,0 +1,20 @@
+{"query": "What is the school zone speed limit?", "state": "california", "ground_truth": "25 mph within 500 feet of a school while children are outside or crossing"}
+{"query": "What is the school zone speed limit?", "state": "florida", "ground_truth": "20 mph"}
+{"query": "What is the school zone speed limit?", "state": "new-jersey", "ground_truth": "25 mph"}
+{"query": "What is the school zone speed limit?", "state": "virginia", "ground_truth": "25 mph"}
+{"query": "What is the school zone speed limit?", "state": "wisconsin", "ground_truth": "15 mph when children are present"}
+{"query": "How far back should I stay from the vehicle in front of me?", "state": "california", "ground_truth": "three-second following distance"}
+{"query": "How far back should I stay from the vehicle in front of me?", "state": "florida", "ground_truth": "three to four seconds"}
+{"query": "How far back should I stay from the vehicle in front of me?", "state": "new-jersey", "ground_truth": "the three seconds-plus rule"}
+{"query": "How far back should I stay from the vehicle in front of me?", "state": "virginia", "ground_truth": "two-, three- and four-second rule"}
+{"query": "How far back should I stay from the vehicle in front of me?", "state": "wisconsin", "ground_truth": "Four Second Following Distance Rule"}
+{"query": "How far before a turn must I signal?", "state": "california", "ground_truth": "100 feet"}
+{"query": "How far before a turn must I signal?", "state": "florida", "ground_truth": "100 feet"}
+{"query": "How far before a turn must I signal?", "state": "new-jersey", "ground_truth": "100 feet"}
+{"query": "How far before a turn must I signal?", "state": "virginia", "ground_truth": "100 feet"}
+{"query": "How far before a turn must I signal?", "state": "wisconsin", "ground_truth": "100 feet"}
+{"query": "How close to a fire hydrant can I park?", "state": "california", "ground_truth": "within 15 feet of a fire hydrant"}
+{"query": "How close to a fire hydrant can I park?", "state": "new-jersey", "ground_truth": "within 10 feet of a fire hydrant"}
+{"query": "How close to a fire hydrant can I park?", "state": "virginia", "ground_truth": "within 15 feet of a fire hydrant"}
+{"query": "How close to a crosswalk can I park?", "state": "california", "ground_truth": "within 20 feet of a crosswalk"}
+{"query": "How close to a crosswalk can I park?", "state": "new-jersey", "ground_truth": "within 25 feet of a crosswalk"}

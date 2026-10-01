@@ -1,0 +1,21 @@
+# Secrets
+.env
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Large binaries — re-fetch with data/download.sh
+data/*.pdf
+data/.nj/
+data/_to_delete/
+
+# OS
+.DS_Store
+
+# Claude Code session files
+.claude/

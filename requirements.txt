@@ -1,0 +1,14 @@
+# Pinned deliberately — the Azure AI Search and Foundry SDK surfaces move
+# quickly (index projections, vectorizers, and the evaluation SDK have all
+# had breaking changes across minor versions). Newer versions may work, but
+# these are the ones the notebooks were tested against.
+
+azure-search-documents==11.6.0
+azure-storage-blob==12.24.0
+azure-identity==1.19.0
+openai==2.48.0
+azure-ai-projects==2.4.0  # 1.0.0b8 (the original pin) predates the connections/inference API entirely
+azure-ai-evaluation==1.18.5
+python-dotenv==1.0.1
+jupyter==1.1.1
+pypdf==6.18.1  # splits any state manual over the indexer's 16 MB doc limit (00_setup.ipynb)
