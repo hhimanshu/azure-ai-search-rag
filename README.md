@@ -4,7 +4,7 @@ Exercise files for the course. Module 1 is a demonstration — you can watch it 
 
 ## Prerequisites
 
-- Python 3.9 or later, and `pip`.
+- Python 3.10 or later (tested on 3.12).
 - An Azure subscription with permission to create resources and assign roles (Owner, or Contributor + User Access Administrator, on the subscription or a resource group).
 - Comfort with resource groups and the Azure portal, at the AZ-900 level. This course does not teach Azure fundamentals.
 
@@ -38,9 +38,16 @@ az account set --subscription "<name-or-id>"
 From the repo root:
 
 ```
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+./setup.sh
+```
+
+This creates `.venv` and installs the pinned packages. It needs Python 3.10 or later (tested on 3.12). You can run it again at any time.
+
+Then open the repo folder in VS Code, open a notebook, and pick the `.venv` interpreter when VS Code asks for a kernel. On Windows, run these commands instead:
+
+```
+py -3.12 -m venv .venv
+.venv\Scripts\pip install -r requirements.txt
 ```
 
 ## 4. Provision the Azure resources
@@ -110,6 +117,7 @@ requirements.txt       # pinned Python packages
 infra/deploy.sh         # provisions the Azure resources
 data/                   # demo corpus (US state driver's manuals) and download script
 eval/                   # evaluation question set (Module 3)
+setup.sh                # creates .venv and installs the packages
 setup/                  # 00_setup.ipynb, run once before Module 2
 module-1/               # Module 1 notebook
 module-2/               # Module 2 notebook
