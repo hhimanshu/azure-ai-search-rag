@@ -5,6 +5,14 @@
 set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
+# Python refuses to create a venv in a path that contains ":" (the PATH separator).
+if [[ "$PWD" == *:* ]]; then
+  echo "This folder path contains a ':' character: $PWD" >&2
+  echo "Python cannot create a virtual environment there." >&2
+  echo "Clone or move the repo to a path without ':' and run ./setup.sh again." >&2
+  exit 1
+fi
+
 PY=""
 for candidate in python3.12 python3.13 python3.11 python3.10 python3; do
   if command -v "$candidate" >/dev/null 2>&1 \
