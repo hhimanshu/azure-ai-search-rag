@@ -1,4 +1,4 @@
-"""Module 2 helpers. Each function wraps one Azure AI Search SDK class and names the clip that uses it."""
+"""Module 2 helpers: each function does one job in Azure AI Search, and names the Azure services it calls."""
 
 import sys
 import time
@@ -37,7 +37,7 @@ from azure.search.documents.indexes.models import (
 
 from config import load_config
 
-# ---- Setup: clients and resource names ----
+# ---- Setup: our Azure AI Search clients, and the names of the four pieces we build ----
 
 config = load_config()
 credential = DefaultAzureCredential()
@@ -52,21 +52,21 @@ INDEXER_NAME = "state-driver-manuals-indexer"
 INDEX_NAME = config.search_index_name
 
 
-# ---- Clip 1: data source, skillset, indexer, index ----
+# ---- Clip 1: turn the PDFs into searchable chunks (Blob Storage, Azure AI Search, Azure AI Services OCR) ----
 
 
 def inputs(**sources):
-    """InputFieldMappingEntry list for a skill: inputs(text="/document/content")."""
+    """Tells a skill where in the document to read its input from (InputFieldMappingEntry)."""
     return [InputFieldMappingEntry(name=name, source=source) for name, source in sources.items()]
 
 
 def outputs(**targets):
-    """OutputFieldMappingEntry list for a skill: outputs(textItems="pages")."""
+    """Tells a skill what to call its result, so later steps can use it (OutputFieldMappingEntry)."""
     return [OutputFieldMappingEntry(name=name, target_name=target) for name, target in targets.items()]
 
 
 def create_data_source():
-    """SearchIndexerDataSourceConnection: points the indexer at the PDF container, signing in as the service's managed identity."""
+    """Tells Azure AI Search where the PDFs sit in Blob Storage, signing in with its own managed identity (SearchIndexerDataSourceConnection)."""
     data_source = SearchIndexerDataSourceConnection(
         name=DATA_SOURCE_NAME,
         type="azureblob",
@@ -82,7 +82,7 @@ def create_data_source():
 
 
 def create_index():
-    """SearchIndex: one search document per chunk, with chunk_id, parent_id, title, and chunk."""
+    """Creates the Azure AI Search index that will hold one searchable document per chunk (SearchIndex)."""
     index = SearchIndex(
         name=INDEX_NAME,
         fields=[
@@ -99,7 +99,7 @@ def create_index():
 
 
 def ocr_skill():
-    """OcrSkill: reads the text out of the page images."""
+    """Reads text out of page images by calling Azure AI Services (Azure Vision) for OCR (OcrSkill)."""
     return OcrSkill(
         context="/document/normalized_images/*",
         default_language_code="en",
@@ -110,7 +110,7 @@ def ocr_skill():
 
 
 def merge_skill():
-    """MergeSkill: puts the OCR text back into the page text."""
+    """Puts the OCR text back into the page text, inside Azure AI Search with no extra service (MergeSkill)."""
     return MergeSkill(
         context="/document",
         insert_pre_tag=" ",
@@ -125,7 +125,7 @@ def merge_skill():
 
 
 def build_index_projection(include_vector=False, include_state=False):
-    """SearchIndexerIndexProjection: turns each chunk into its own search document."""
+    """Turns each chunk into its own search document in the index, inside Azure AI Search (SearchIndexerIndexProjection)."""
     mappings = inputs(chunk="/document/pages/*", title="/document/title")
     if include_vector:
         mappings += inputs(vector="/document/pages/*/vector")
@@ -147,12 +147,12 @@ def build_index_projection(include_vector=False, include_state=False):
 
 
 def ai_services_account():
-    """CognitiveServicesAccountKey: the key-based billing attachment the OCR skill needs."""
+    """Attaches our Azure AI Services resource, by key, so the OCR calls can be billed (CognitiveServicesAccountKey)."""
     return CognitiveServicesAccountKey(key=config.ai_services_key)
 
 
 def blob_indexing_parameters():
-    """IndexingParameters: read PDF text and metadata, and extract the page images for OCR."""
+    """Tells the indexer to read each PDF's text and details, and to pull out its page images for OCR (IndexingParameters)."""
     return IndexingParameters(
         configuration=IndexingParametersConfiguration(
             data_to_extract="contentAndMetadata",
@@ -164,12 +164,12 @@ def blob_indexing_parameters():
 
 
 def title_field_mapping():
-    """FieldMapping: copies the blob file name into the title field."""
+    """Copies each blob's file name into the index's title field (FieldMapping)."""
     return FieldMapping(source_field_name="metadata_storage_name", target_field_name="title")
 
 
 def reset_indexer_with_retry(retries=6, delay=5):
-    """Retries reset_indexer(): a just-finished run can look in progress for a few seconds."""
+    """Makes the indexer forget what it already read, retrying while Azure AI Search closes out the last run."""
     for attempt in range(retries):
         try:
             indexer_client.reset_indexer(INDEXER_NAME)
@@ -182,7 +182,7 @@ def reset_indexer_with_retry(retries=6, delay=5):
 
 
 def run_and_wait(reset=False, poll_seconds=5):
-    """Runs the indexer and waits for a new result; reset=True reprocesses every blob."""
+    """Starts the indexer and waits for its result; reset=True re-reads every PDF from Blob Storage."""
     if reset:
         reset_indexer_with_retry()
         previous_start = None
@@ -206,7 +206,7 @@ def run_and_wait(reset=False, poll_seconds=5):
 
 
 def show_hits(results, fields=("state", "title", "chunk"), snippet_len=180):
-    """Prints each result's rank, scores, and the fields you ask for."""
+    """Prints each search result's rank, its scores, and the fields you ask for."""
     for i, r in enumerate(results, start=1):
         line = f"{i}. score={r['@search.score']:.3f}"
         if r.get("@search.reranker_score") is not None:
@@ -222,17 +222,18 @@ def show_hits(results, fields=("state", "title", "chunk"), snippet_len=180):
         print()
 
 
-# ---- Clip 2: embeddings and vector search ----
+# ---- Clip 2: match by meaning (Azure AI Search calls an Azure OpenAI embedding model) ----
 
 
 def add_vector_search(vectorizer, dimensions=1536):
-    """VectorSearch: adds the vector field and an HNSW profile that uses your vectorizer; dimensions must match the embedding skill."""
+    """Adds the vector field and a vectorizer that calls our Azure OpenAI embedding model when a query arrives (VectorSearch)."""
     index = index_client.get_index(INDEX_NAME)
     index.fields.append(
         SearchField(
             name="vector",
             type=SearchFieldDataType.Collection(SearchFieldDataType.Single),
             searchable=True,
+            # Must equal the embedding skill's dimensions.
             vector_search_dimensions=dimensions,
             vector_search_profile_name="vector-profile",
         )
@@ -251,7 +252,7 @@ def add_vector_search(vectorizer, dimensions=1536):
 
 
 def add_skill(skill, include_vector=False):
-    """SearchIndexerSkillset: appends a skill to the live skillset and refreshes the projection."""
+    """Adds a skill to the skillset already in Azure AI Search, and refreshes which fields each chunk fills (SearchIndexerSkillset)."""
     skillset = indexer_client.get_skillset(SKILLSET_NAME)
     skillset.skills = list(skillset.skills) + [skill]
     skillset.index_projection = build_index_projection(include_vector=include_vector)
@@ -259,11 +260,11 @@ def add_skill(skill, include_vector=False):
     print("Skillset updated: skill added.")
 
 
-# ---- Clip 3: filters and semantic ranking ----
+# ---- Clip 3: filter by state and rerank (all inside Azure AI Search) ----
 
 
 def add_index_field(field):
-    """SearchIndex: adds one field to the live index."""
+    """Adds one new field to the index that already lives in Azure AI Search (SearchIndex)."""
     index = index_client.get_index(INDEX_NAME)
     index.fields.append(field)
     index_client.create_or_update_index(index)
@@ -271,7 +272,7 @@ def add_index_field(field):
 
 
 def add_field_mapping(mapping):
-    """SearchIndexer: adds one field mapping to the live indexer."""
+    """Adds one rule telling the indexer how to fill an index field from the blob (SearchIndexer)."""
     indexer = indexer_client.get_indexer(INDEXER_NAME)
     indexer.field_mappings = list(indexer.field_mappings) + [mapping]
     indexer_client.create_or_update_indexer(indexer)
@@ -279,7 +280,7 @@ def add_field_mapping(mapping):
 
 
 def set_projection(include_vector=True, include_state=False):
-    """SearchIndexerIndexProjection: rebuilds the live skillset's projection with the fields you choose."""
+    """Rewrites which fields each chunk document gets, such as vector and state (SearchIndexerIndexProjection)."""
     skillset = indexer_client.get_skillset(SKILLSET_NAME)
     skillset.index_projection = build_index_projection(include_vector=include_vector, include_state=include_state)
     indexer_client.create_or_update_skillset(skillset)
@@ -287,7 +288,7 @@ def set_projection(include_vector=True, include_state=False):
 
 
 def add_semantic_search(configuration):
-    """SemanticSearch: attaches your semantic configuration to the live index as the default."""
+    """Turns on the semantic ranker, which reorders the top results with Microsoft's language models (SemanticSearch)."""
     index = index_client.get_index(INDEX_NAME)
     index.semantic_search = SemanticSearch(
         configurations=[configuration],
