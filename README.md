@@ -50,13 +50,13 @@ py -3.12 -m venv .venv
 .venv\Scripts\pip install -r requirements.txt
 ```
 
-## 4. Provision the Azure resources
+## 4. Provision the Azure resources and load the PDFs
 
 ```
 ./infra/deploy.sh
 ```
 
-This creates a resource group with Azure AI Search, Azure Storage, and an Azure AI Services resource with the model deployments this course needs. At the end, the script writes your settings to a `.env` file in the repo root. You do not copy or paste anything.
+This creates a resource group with Azure AI Search, Azure Storage, and an Azure AI Services resource with the model deployments this course needs. At the end, it writes your settings to a `.env` file, downloads the five demo PDFs, and uploads them to Blob Storage. You do not copy, paste, or upload anything.
 
 Run it once. If a deployment already exists (a `.env` file, or a Search service in the resource group), the script stops before it creates anything, so you are not billed twice. To start over, delete the resource group first. To create a second set on purpose, run `FORCE_ENV=1 ./infra/deploy.sh`. The script keeps your old `.env` as `.env.bak`.
 
@@ -66,19 +66,13 @@ Run it once. If a deployment already exists (a `.env` file, or a Search service 
 az group delete --name <resource-group-from-deploy.sh> --yes
 ```
 
-## 5. Download the demo corpus
+## 5. (Optional) Check the setup
 
-```
-./data/download.sh
-```
-
-## 6. Confirm everything works
-
-Open `setup/00_setup.ipynb` and run every cell. The last cell confirms your Search service, Blob Storage, and embedding deployment are all reachable, and uploads the demo corpus.
+Open `setup/00_setup.ipynb` and run every cell. It confirms your Search service, Blob Storage, and embedding deployment are reachable, and it uploads any PDF that is missing.
 
 If a cell fails, fix that error before you continue. Do not skip ahead.
 
-## 7. Find your values and check your data in the browser
+## 6. Find your values and check your data in the browser
 
 `deploy.sh` writes the `.env` values for you. You only need this section to find a value again, or to see the data with your own eyes in the browser. Menu labels in Azure change from time to time, so look for the closest match.
 
@@ -114,7 +108,8 @@ If a count is 0 or a folder is missing, go back to the notebook step that create
 config.py              # shared settings, loaded by every notebook
 requirements.txt       # pinned Python packages
 .env.example           # copy to .env and fill in
-infra/deploy.sh         # provisions the Azure resources
+infra/deploy.sh         # provisions Azure, writes .env, loads the PDFs
+infra/load_corpus.py    # uploads the PDFs to Blob Storage (run by deploy.sh)
 data/                   # demo corpus (US state driver's manuals) and download script
 eval/                   # evaluation question set (Module 3)
 setup.sh                # creates .venv and installs the packages

@@ -2,13 +2,13 @@
 # Provisions everything Module 2 needs (Search + Storage + AI Services with
 # the embedding deployment for integrated vectorization and OCR), assigns
 # yourself the Entra ID roles the notebooks rely on instead of keys, and
-# writes the settings to .env at the repo root, so you do not copy anything.
+# writes the settings to .env at the repo root, downloads the demo PDFs, and uploads them to Blob Storage, so you do nothing else by hand.
 #
 # Not provisioned here: a Microsoft Foundry hub/project (Module 3 only,
 # not an M2 dependency) and the chat model deployments (also M3). Add those
 # when you reach 03_grounded_and_eval.ipynb.
 #
-# Usage: ./infra/deploy.sh
+# Usage: ./setup.sh (once, it creates .venv), then ./infra/deploy.sh
 # Requires: az CLI, logged in (`az login`), Owner or Contributor + User
 # Access Administrator on the target subscription (needed for the role
 # assignments below).
@@ -42,6 +42,17 @@ if [[ "${FORCE_ENV:-0}" != "1" ]]; then
     echo "To create another set on purpose, run: FORCE_ENV=1 ./infra/deploy.sh" >&2
     exit 1
   fi
+fi
+
+# The PDF upload at the end runs in .venv, so stop now, before anything is created, if it is missing.
+if [[ -x "$REPO_ROOT/.venv/bin/python" ]]; then
+  VENV_PY="$REPO_ROOT/.venv/bin/python"
+elif [[ -x "$REPO_ROOT/.venv/Scripts/python.exe" ]]; then
+  VENV_PY="$REPO_ROOT/.venv/Scripts/python.exe"
+else
+  echo "STOP: .venv not found, so nothing was created." >&2
+  echo "Run ./setup.sh first. This script uses .venv to upload the PDFs." >&2
+  exit 1
 fi
 
 echo "== Resource group: $RESOURCE_GROUP ($LOCATION) =="
@@ -146,8 +157,20 @@ if [[ -e "$ENV_FILE" ]]; then
   echo "Saved your previous .env as .env.bak"
 fi
 (umask 077; printf '%s\n' "$ENV_BLOCK" > "$ENV_FILE")
-echo "== Done. Wrote $ENV_FILE =="
-echo "You do not need to copy anything. Open the notebooks next."
+echo "== Wrote $ENV_FILE =="
+
+echo
+echo "== Loading the demo PDFs into Blob Storage =="
+RETRY_HINT="Your Azure resources are ready. To finish the data step, run: ./data/download.sh && $VENV_PY infra/load_corpus.py"
+if ! "$REPO_ROOT/data/download.sh"; then
+  echo "STOP: the PDF download failed. $RETRY_HINT" >&2
+  exit 1
+fi
+if ! "$VENV_PY" "$REPO_ROOT/infra/load_corpus.py"; then
+  echo "STOP: the PDF upload failed. $RETRY_HINT" >&2
+  exit 1
+fi
+echo "== Done. Resources, .env, and PDFs are ready. Open the notebooks next. =="
 
 echo
 echo "Cost check: Basic Search runs ~\$75/mo prorated. Tear down with:"
