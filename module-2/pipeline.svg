@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-labelledby="t d">
+<title id="t">Indexing pipeline: four parts, built over three clips</title>
+<desc id="d">Blob Storage feeds a data source, a skillset, an indexer, and an index. Clip 1 builds all four parts: OCR, merge, and split skills, and an index with chunk fields. Clip 2 adds an embedding skill, a vector field, and a vectorizer. Clip 3 adds a state field with a filter, and a semantic ranker. Queries then search the index.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#334155"/></marker></defs>
+<rect x="0" y="0" width="1600" height="900" fill="#FFFFFF"/>
+<text x="40" y="60" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="36" font-weight="bold" fill="#0F172A" text-anchor="start">Indexing pipeline: four parts, built over three clips</text>
+<rect x="40" y="110" width="160" height="150" rx="14" fill="#E2E8F0" stroke="#334155" stroke-width="2.5"/>
+<text x="120" y="162" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="26" font-weight="bold" fill="#0F172A" text-anchor="middle">Blob</text>
+<text x="120" y="192" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="26" font-weight="bold" fill="#0F172A" text-anchor="middle">Storage</text>
+<text x="120" y="236" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#334155" text-anchor="middle">5 PDFs</text>
+<rect x="240" y="110" width="300" height="150" rx="14" fill="#F1F5F9" stroke="#334155" stroke-width="2.5"/>
+<text x="390" y="158" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="26" font-weight="bold" fill="#0F172A" text-anchor="middle">1  Data source</text>
+<text x="390" y="190" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#0F172A" text-anchor="middle">SearchIndexer</text>
+<text x="390" y="216" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#0F172A" text-anchor="middle">DataSourceConnection</text>
+<text x="390" y="250" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#334155" text-anchor="middle">points at the PDFs</text>
+<rect x="345.0" y="93" width="90" height="34" rx="17" fill="#1D4ED8"/>
+<text x="390.0" y="117.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Clip 1</text>
+<rect x="580" y="110" width="300" height="150" rx="14" fill="#F1F5F9" stroke="#334155" stroke-width="2.5"/>
+<text x="730" y="158" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="26" font-weight="bold" fill="#0F172A" text-anchor="middle">2  Skillset</text>
+<text x="730" y="190" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#0F172A" text-anchor="middle">SearchIndexer</text>
+<text x="730" y="216" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#0F172A" text-anchor="middle">Skillset</text>
+<text x="730" y="250" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#334155" text-anchor="middle">enriches the text</text>
+<rect x="636.0" y="93" width="90" height="34" rx="17" fill="#1D4ED8"/>
+<text x="681.0" y="117.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Clip 1</text>
+<rect x="734.0" y="93" width="90" height="34" rx="17" fill="#15803D"/>
+<text x="779.0" y="117.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Clip 2</text>
+<rect x="920" y="110" width="300" height="150" rx="14" fill="#F1F5F9" stroke="#334155" stroke-width="2.5"/>
+<text x="1070" y="158" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="26" font-weight="bold" fill="#0F172A" text-anchor="middle">3  Indexer</text>
+<text x="1070" y="190" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#0F172A" text-anchor="middle">SearchIndexer</text>
+<text x="1070" y="250" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#334155" text-anchor="middle">runs the skillset</text>
+<rect x="976.0" y="93" width="90" height="34" rx="17" fill="#1D4ED8"/>
+<text x="1021.0" y="117.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Clip 1</text>
+<rect x="1074.0" y="93" width="90" height="34" rx="17" fill="#7E22CE"/>
+<text x="1119.0" y="117.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Clip 3</text>
+<rect x="1260" y="110" width="300" height="150" rx="14" fill="#F1F5F9" stroke="#334155" stroke-width="2.5"/>
+<text x="1410" y="158" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="26" font-weight="bold" fill="#0F172A" text-anchor="middle">4  Index</text>
+<text x="1410" y="190" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#0F172A" text-anchor="middle">SearchIndex</text>
+<text x="1410" y="250" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#334155" text-anchor="middle">holds one doc per chunk</text>
+<rect x="1267.0" y="93" width="90" height="34" rx="17" fill="#1D4ED8"/>
+<text x="1312.0" y="117.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Clip 1</text>
+<rect x="1365.0" y="93" width="90" height="34" rx="17" fill="#15803D"/>
+<text x="1410.0" y="117.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Clip 2</text>
+<rect x="1463.0" y="93" width="90" height="34" rx="17" fill="#7E22CE"/>
+<text x="1508.0" y="117.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Clip 3</text>
+<line x1="202" y1="185.0" x2="236" y2="185.0" stroke="#334155" stroke-width="3.5" marker-end="url(#arrow)"/>
+<line x1="542" y1="185.0" x2="576" y2="185.0" stroke="#334155" stroke-width="3.5" marker-end="url(#arrow)"/>
+<line x1="882" y1="185.0" x2="916" y2="185.0" stroke="#334155" stroke-width="3.5" marker-end="url(#arrow)"/>
+<line x1="1222" y1="185.0" x2="1256" y2="185.0" stroke="#334155" stroke-width="3.5" marker-end="url(#arrow)"/>
+<text x="70" y="306" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="24" font-weight="bold" fill="#0F172A" text-anchor="start">Inside the skillset (SearchIndexerSkillset)</text>
+<rect x="70" y="330" width="268" height="160" rx="14" fill="#F1F5F9" stroke="#334155" stroke-width="2.5"/>
+<rect x="84" y="313" width="90" height="34" rx="17" fill="#1D4ED8"/>
+<text x="129" y="337.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Clip 1</text>
+<text x="204.0" y="392" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="bold" fill="#0F172A" text-anchor="middle">OcrSkill</text>
+<text x="204.0" y="430" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#334155" text-anchor="middle">reads image text</text>
+<line x1="340" y1="410.0" x2="364" y2="410.0" stroke="#334155" stroke-width="3.5" marker-end="url(#arrow)"/>
+<rect x="368" y="330" width="268" height="160" rx="14" fill="#F1F5F9" stroke="#334155" stroke-width="2.5"/>
+<rect x="382" y="313" width="90" height="34" rx="17" fill="#1D4ED8"/>
+<text x="427" y="337.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Clip 1</text>
+<text x="502.0" y="392" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="bold" fill="#0F172A" text-anchor="middle">MergeSkill</text>
+<text x="502.0" y="430" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#334155" text-anchor="middle">merges it into text</text>
+<line x1="638" y1="410.0" x2="662" y2="410.0" stroke="#334155" stroke-width="3.5" marker-end="url(#arrow)"/>
+<rect x="666" y="330" width="268" height="160" rx="14" fill="#F1F5F9" stroke="#334155" stroke-width="2.5"/>
+<rect x="680" y="313" width="90" height="34" rx="17" fill="#1D4ED8"/>
+<text x="725" y="337.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Clip 1</text>
+<text x="800.0" y="392" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="bold" fill="#0F172A" text-anchor="middle">SplitSkill</text>
+<text x="800.0" y="430" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#334155" text-anchor="middle">~2,000-char chunks</text>
+<text x="800.0" y="456" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#334155" text-anchor="middle">500 overlap</text>
+<line x1="936" y1="410.0" x2="960" y2="410.0" stroke="#334155" stroke-width="3.5" marker-end="url(#arrow)"/>
+<rect x="964" y="330" width="268" height="160" rx="14" fill="#F1F5F9" stroke="#334155" stroke-width="2.5"/>
+<rect x="978" y="313" width="90" height="34" rx="17" fill="#15803D"/>
+<text x="1023" y="337.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Clip 2</text>
+<text x="1098.0" y="392" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="bold" fill="#0F172A" text-anchor="middle">AzureOpenAI</text>
+<text x="1098.0" y="418" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="bold" fill="#0F172A" text-anchor="middle">EmbeddingSkill</text>
+<text x="1098.0" y="456" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#334155" text-anchor="middle">one vector per chunk</text>
+<line x1="1234" y1="410.0" x2="1258" y2="410.0" stroke="#334155" stroke-width="3.5" marker-end="url(#arrow)"/>
+<rect x="1262" y="330" width="268" height="160" rx="14" fill="#F1F5F9" stroke="#334155" stroke-width="2.5"/>
+<rect x="1276" y="313" width="90" height="34" rx="17" fill="#1D4ED8"/>
+<text x="1321" y="337.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Clip 1</text>
+<text x="1396.0" y="392" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="bold" fill="#0F172A" text-anchor="middle">SearchIndexerIndex</text>
+<text x="1396.0" y="418" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="bold" fill="#0F172A" text-anchor="middle">Projection</text>
+<text x="1396.0" y="456" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#334155" text-anchor="middle">one doc per chunk</text>
+<rect x="40" y="560" width="600" height="225" rx="14" fill="#F8FAFC" stroke="#94A3B8" stroke-width="2.5"/>
+<text x="60" y="598" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="24" font-weight="bold" fill="#0F172A" text-anchor="start">Inside the indexer (SearchIndexer)</text>
+<rect x="60" y="626" width="90" height="34" rx="17" fill="#1D4ED8"/>
+<text x="105" y="650.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Clip 1</text>
+<text x="166" y="650" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#0F172A" text-anchor="start">title ← metadata_storage_name</text>
+<rect x="60" y="690" width="90" height="34" rx="17" fill="#7E22CE"/>
+<text x="105" y="714.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Clip 3</text>
+<text x="166" y="714" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#0F172A" text-anchor="start">state ← the blob folder</text>
+<text x="166" y="744" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#334155" text-anchor="start">(FieldMappingFunction)</text>
+<rect x="680" y="560" width="880" height="225" rx="14" fill="#F8FAFC" stroke="#94A3B8" stroke-width="2.5"/>
+<text x="700" y="598" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="24" font-weight="bold" fill="#0F172A" text-anchor="start">Inside the index (SearchIndex)</text>
+<rect x="700" y="626" width="90" height="34" rx="17" fill="#1D4ED8"/>
+<text x="745" y="650.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Clip 1</text>
+<text x="806" y="651" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#0F172A" text-anchor="start">chunk_id · parent_id · title · chunk</text>
+<rect x="700" y="680" width="90" height="34" rx="17" fill="#15803D"/>
+<text x="745" y="704.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Clip 2</text>
+<text x="806" y="705" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#0F172A" text-anchor="start">vector · AzureOpenAIVectorizer · VectorSearch</text>
+<rect x="700" y="734" width="90" height="34" rx="17" fill="#7E22CE"/>
+<text x="745" y="758.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Clip 3</text>
+<text x="806" y="759" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#0F172A" text-anchor="start">state (filter) · SemanticSearch (semantic ranker)</text>
+<rect x="1180" y="815" width="380" height="72" rx="14" fill="#E2E8F0" stroke="#334155" stroke-width="2.5"/>
+<text x="1370" y="845" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#0F172A" text-anchor="middle">Then query the index:</text>
+<text x="1370" y="874" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#0F172A" text-anchor="middle">full-text · vector · hybrid</text>
+<line x1="1370" y1="813" x2="1370" y2="789" stroke="#334155" stroke-width="3.5" marker-end="url(#arrow)"/>
+<rect x="40" y="836" width="90" height="34" rx="17" fill="#1D4ED8"/>
+<text x="85" y="860.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Clip 1</text>
+<text x="142" y="861" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#0F172A" text-anchor="start">builds the pipeline</text>
+<rect x="402" y="836" width="90" height="34" rx="17" fill="#15803D"/>
+<text x="447" y="860.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Clip 2</text>
+<text x="504" y="861" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#0F172A" text-anchor="start">adds vectors</text>
+<rect x="681" y="836" width="90" height="34" rx="17" fill="#7E22CE"/>
+<text x="726" y="860.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Clip 3</text>
+<text x="783" y="861" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#0F172A" text-anchor="start">adds filter and ranking</text>
+</svg>
