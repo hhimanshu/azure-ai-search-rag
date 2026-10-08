@@ -63,17 +63,16 @@ def split_oversized_pdf(path):
         yield f"{path.stem}-part{i:02d}.pdf", data
 
 
-def wait_for_blob_access(container_client):
-    """A new role assignment can take a few minutes to work, so retry 403 errors for a while."""
+def retry_while_role_propagates(operation):
+    """A new role assignment takes minutes to work, and some calls succeed before others, so retry every 403."""
     deadline = time.time() + ROLE_WAIT_SECONDS
     while True:
         try:
-            container_client.get_container_properties()
-            return
+            return operation()
         except HttpResponseError as e:
             if e.status_code != 403 or time.time() > deadline:
                 raise
-            print(f"Waiting for the Blob Storage role to take effect ({e.status_code})...", flush=True)
+            print("Waiting for the Blob Storage role to take effect...", flush=True)
             time.sleep(ROLE_POLL_SECONDS)
 
 
@@ -83,7 +82,7 @@ def main():
         config.storage_account_url, credential=DefaultAzureCredential()
     ).get_container_client(config.storage_container_name)
 
-    wait_for_blob_access(container_client)
+    retry_while_role_propagates(container_client.get_container_properties)
 
     missing_files = [name for name in STATE_FILES.values() if not (DATA_DIR / name).exists()]
     if missing_files:
@@ -93,13 +92,13 @@ def main():
     for state, filename in STATE_FILES.items():
         for part_name, part_bytes in split_oversized_pdf(DATA_DIR / filename):
             blob_client = container_client.get_blob_client(f"{state}/{part_name}")
-            if blob_client.exists():
+            if retry_while_role_propagates(blob_client.exists):
                 print(f"Already uploaded: {state}/{part_name}")
                 continue
-            blob_client.upload_blob(part_bytes, overwrite=False)
+            retry_while_role_propagates(lambda: blob_client.upload_blob(part_bytes, overwrite=False))
             print(f"Uploaded: {state}/{part_name} ({len(part_bytes) / 1024 / 1024:.1f} MB)")
 
-    uploaded = sorted(b.name for b in container_client.list_blobs())
+    uploaded = sorted(retry_while_role_propagates(lambda: [b.name for b in container_client.list_blobs()]))
     missing_states = set(STATE_FILES) - {name.split("/")[0] for name in uploaded}
     if missing_states:
         print(f"No blobs uploaded for: {sorted(missing_states)}", file=sys.stderr)

@@ -5,7 +5,7 @@
 set -e
 cd "$(dirname "$0")"
 UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
-get(){ if [ -s "$1" ]; then echo "have $1"; else echo "-> $1"; curl -fSL -A "$UA" -o "$1" "$2"; fi; }
+get(){ if [ -s "$1" ]; then echo "have $1"; else echo "-> $1"; curl -fsSL -A "$UA" -o "$1" "$2"; fi; }
 get california-driver-handbook.pdf   "https://www.dmv.ca.gov/portal/file/california-driver-handbook-pdf/"
 get florida-driver-handbook.pdf      "https://www.flhsmv.gov/pdf/handbooks/englishdriverhandbook.pdf"
 get newjersey-driver-manual.pdf      "https://www.nj.gov/mvc/pdf/license/drivermanual.pdf"
