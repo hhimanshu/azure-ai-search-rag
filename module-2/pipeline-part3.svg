@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 100 1600 800" width="1600" height="800" role="img" aria-labelledby="t d">
+<title id="t">Part 3: Filter by state and rank by relevance</title>
+<desc id="d">The same four pipeline boxes, in gray. Part 3 adds a state field mapping using FieldMappingFunction in the indexer, and a state field and SemanticSearch in the index.</desc>
+<rect width="1600" height="900" fill="#ffffff"/>
+<rect x="40" y="150" width="190" height="230" rx="14" fill="#e8e8e8" stroke="#8a8a8a" stroke-width="2"/>
+<text x="135" y="250" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="32" font-weight="bold" fill="#4d4d4d" text-anchor="middle">Blob</text>
+<text x="135" y="290" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="32" font-weight="bold" fill="#4d4d4d" text-anchor="middle">Storage</text>
+<text x="135" y="354" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="24" font-weight="normal" fill="#4d4d4d" text-anchor="middle">5 PDFs</text>
+<rect x="270" y="150" width="320" height="230" rx="14" fill="#e8e8e8" stroke="#8a8a8a" stroke-width="2"/>
+<text x="430" y="202" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="32" font-weight="bold" fill="#4d4d4d" text-anchor="middle">1  Data source</text>
+<text x="430" y="246" font-family="ui-monospace, Menlo, Consolas, 'Courier New', monospace" font-size="22" font-weight="normal" fill="#4d4d4d" text-anchor="middle">SearchIndexer</text>
+<text x="430" y="274" font-family="ui-monospace, Menlo, Consolas, 'Courier New', monospace" font-size="22" font-weight="normal" fill="#4d4d4d" text-anchor="middle">DataSourceConnection</text>
+<text x="430" y="354" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="24" font-weight="normal" fill="#4d4d4d" text-anchor="middle">points at the PDFs</text>
+<rect x="630" y="150" width="280" height="230" rx="14" fill="#e8e8e8" stroke="#8a8a8a" stroke-width="2"/>
+<text x="770" y="202" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="32" font-weight="bold" fill="#4d4d4d" text-anchor="middle">2  Skillset</text>
+<text x="770" y="246" font-family="ui-monospace, Menlo, Consolas, 'Courier New', monospace" font-size="22" font-weight="normal" fill="#4d4d4d" text-anchor="middle">SearchIndexer</text>
+<text x="770" y="274" font-family="ui-monospace, Menlo, Consolas, 'Courier New', monospace" font-size="22" font-weight="normal" fill="#4d4d4d" text-anchor="middle">Skillset</text>
+<text x="770" y="354" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="24" font-weight="normal" fill="#4d4d4d" text-anchor="middle">enriches the text</text>
+<rect x="950" y="150" width="280" height="230" rx="14" fill="#e8e8e8" stroke="#8a8a8a" stroke-width="2"/>
+<text x="1090" y="202" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="32" font-weight="bold" fill="#4d4d4d" text-anchor="middle">3  Indexer</text>
+<text x="1090" y="246" font-family="ui-monospace, Menlo, Consolas, 'Courier New', monospace" font-size="22" font-weight="normal" fill="#4d4d4d" text-anchor="middle">SearchIndexer</text>
+<text x="1090" y="354" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="24" font-weight="normal" fill="#4d4d4d" text-anchor="middle">runs the skillset</text>
+<rect x="1270" y="150" width="290" height="230" rx="14" fill="#e8e8e8" stroke="#8a8a8a" stroke-width="2"/>
+<text x="1415" y="202" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="32" font-weight="bold" fill="#4d4d4d" text-anchor="middle">4  Index</text>
+<text x="1415" y="246" font-family="ui-monospace, Menlo, Consolas, 'Courier New', monospace" font-size="22" font-weight="normal" fill="#4d4d4d" text-anchor="middle">SearchIndex</text>
+<text x="1415" y="354" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="24" font-weight="normal" fill="#4d4d4d" text-anchor="middle">one doc per chunk</text>
+<line x1="230" y1="265" x2="256" y2="265" stroke="#333333" stroke-width="4"/><polygon points="270,265 256,256 256,274" fill="#333333"/>
+<line x1="590" y1="265" x2="616" y2="265" stroke="#333333" stroke-width="4"/><polygon points="630,265 616,256 616,274" fill="#333333"/>
+<line x1="910" y1="265" x2="936" y2="265" stroke="#333333" stroke-width="4"/><polygon points="950,265 936,256 936,274" fill="#333333"/>
+<line x1="1230" y1="265" x2="1256" y2="265" stroke="#333333" stroke-width="4"/><polygon points="1270,265 1256,256 1256,274" fill="#333333"/>
+<line x1="1090" y1="380" x2="1090" y2="470" stroke="#333333" stroke-width="4"/>
+<rect x="870" y="470" width="320" height="200" rx="14" fill="#000000" stroke="#000000" stroke-width="3"/>
+<text x="1030" y="520" font-family="ui-monospace, Menlo, Consolas, 'Courier New', monospace" font-size="28" font-weight="bold" fill="#ffffff" text-anchor="middle">FieldMapping</text>
+<text x="1030" y="554" font-family="ui-monospace, Menlo, Consolas, 'Courier New', monospace" font-size="28" font-weight="bold" fill="#ffffff" text-anchor="middle">Function</text>
+<text x="1030" y="615" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#ffffff" text-anchor="middle">state from the blob folder</text>
+<line x1="1415" y1="380" x2="1415" y2="470" stroke="#333333" stroke-width="4"/>
+<rect x="1230" y="470" width="320" height="200" rx="14" fill="#000000" stroke="#000000" stroke-width="3"/>
+<text x="1390" y="520" font-family="ui-monospace, Menlo, Consolas, 'Courier New', monospace" font-size="28" font-weight="bold" fill="#ffffff" text-anchor="middle">state field</text>
+<text x="1390" y="556" font-family="ui-monospace, Menlo, Consolas, 'Courier New', monospace" font-size="28" font-weight="bold" fill="#ffffff" text-anchor="middle">SemanticSearch</text>
+<text x="1390" y="615" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="24" font-weight="normal" fill="#ffffff" text-anchor="middle">filter, then rerank</text>
+<text x="40" y="470" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="26" font-weight="bold" fill="#333333" text-anchor="start">Added in Part 3</text>
+<text x="40" y="505" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="24" font-weight="normal" fill="#4d4d4d" text-anchor="start">(black boxes)</text>
+<rect x="40" y="780" width="1520" height="80" rx="14" fill="#ffffff" stroke="#333333" stroke-width="2"/>
+<text x="800" y="830" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="28" font-weight="bold" fill="#000000" text-anchor="middle">Result: filtered, reranked search</text>
+</svg>
