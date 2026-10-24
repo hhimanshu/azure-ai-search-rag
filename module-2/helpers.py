@@ -1,5 +1,6 @@
 """Module 2 helpers: each function does one job in Azure AI Search, and names the Azure services it calls."""
 
+import re
 import sys
 import time
 from pathlib import Path
@@ -213,7 +214,25 @@ def create_index():
 # ===== Part 1 · See the results =====
 
 # Prints each search result's rank, its scores, and the fields you ask for.
-def show_hits(results, fields=("state", "title", "chunk"), snippet_len=180):
+def show_hits(results, fields=("state", "title", "chunk"), snippet_len=180, around=None):
+    for i, r in enumerate(results, start=1):
+        line = f"{i}. score={r['@search.score']:.3f}"
+        if r.get("@search.reranker_score") is not None:
+            line += f"  reranker={r['@search.reranker_score']:.3f}"
+        print(line)
+        for field in fields:
+            if field not in r:
+                continue
+            value = r[field]
+            if field == "chunk" and isinstance(value, str):
+                value = " ".join(value.split())
+                start = 0
+                if around and (match := re.search(around, value, re.IGNORECASE)):
+                    start = max(0, match.start() - snippet_len // 3)
+                value = ("..." if start else "") + value[start:start + snippet_len] + "..."
+            print(f"   {field}: {value}")
+        print()
+    
     for i, r in enumerate(results, start=1):
         line = f"{i}. score={r['@search.score']:.3f}"
         if r.get("@search.reranker_score") is not None:
