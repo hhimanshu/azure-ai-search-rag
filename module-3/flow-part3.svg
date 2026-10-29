@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-labelledby="t d">
+<title id="t">Part 3: measure the pipeline, then diagnose its weakest row</title>
+<desc id="d">Twenty questions from the eval set run through the answer_question pipeline. Three evaluators score each answer: RetrievalEvaluator, GroundednessEvaluator, and RelevanceEvaluator. The evaluate function returns one row per question. Then you diagnose the row with the lowest retrieval score by re-running it with the state filter. The eval set and the pipeline are shown dashed as context.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#000000"/></marker></defs>
+<rect x="0" y="0" width="1600" height="900" fill="#FFFFFF"/>
+<text x="40" y="70" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="38" font-weight="bold" fill="#000000" text-anchor="start">Part 3: measure the pipeline, then diagnose its weakest row</text>
+<rect x="40" y="370" width="210" height="170" rx="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="3" stroke-dasharray="10 8"/>
+<text x="145.0" y="427.0" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="28" font-weight="bold" fill="#000000" text-anchor="middle">Eval set</text>
+<text x="145.0" y="463.0" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#000000" text-anchor="middle">eval_set.jsonl</text>
+<text x="145.0" y="505.0" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#374151" text-anchor="middle">20 questions</text>
+<rect x="290" y="370" width="250" height="170" rx="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="3" stroke-dasharray="10 8"/>
+<text x="415.0" y="427.0" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="28" font-weight="bold" fill="#000000" text-anchor="middle">Pipeline</text>
+<text x="415.0" y="463.0" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#000000" text-anchor="middle">answer_question()</text>
+<text x="415.0" y="505.0" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#374151" text-anchor="middle">runs unfiltered</text>
+<rect x="580" y="180" width="370" height="560" rx="14" fill="#FFFFFF" stroke="#000000" stroke-width="7"/>
+<rect x="605" y="205" width="320" height="155" rx="14" fill="#F3F4F6" stroke="#000000" stroke-width="2.5"/>
+<text x="765.0" y="257.5" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#000000" text-anchor="middle">Retrieval</text>
+<text x="765.0" y="287.5" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#000000" text-anchor="middle">Evaluator</text>
+<text x="765.0" y="329.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#374151" text-anchor="middle">fits the query?</text>
+<rect x="605" y="380" width="320" height="155" rx="14" fill="#F3F4F6" stroke="#000000" stroke-width="2.5"/>
+<text x="765.0" y="432.5" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#000000" text-anchor="middle">Groundedness</text>
+<text x="765.0" y="462.5" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#000000" text-anchor="middle">Evaluator</text>
+<text x="765.0" y="504.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#374151" text-anchor="middle">backed by context?</text>
+<rect x="605" y="555" width="320" height="155" rx="14" fill="#F3F4F6" stroke="#000000" stroke-width="2.5"/>
+<text x="765.0" y="607.5" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#000000" text-anchor="middle">Relevance</text>
+<text x="765.0" y="637.5" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#000000" text-anchor="middle">Evaluator</text>
+<text x="765.0" y="679.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#374151" text-anchor="middle">answers the query?</text>
+<rect x="990" y="370" width="200" height="170" rx="14" fill="#F3F4F6" stroke="#000000" stroke-width="2.5"/>
+<text x="1090.0" y="412.0" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="28" font-weight="bold" fill="#000000" text-anchor="middle">Scores</text>
+<text x="1090.0" y="448.0" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#000000" text-anchor="middle">evaluate()</text>
+<text x="1090.0" y="490.0" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#374151" text-anchor="middle">one row per</text>
+<text x="1090.0" y="520.0" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#374151" text-anchor="middle">question</text>
+<rect x="1230" y="330" width="330" height="250" rx="14" fill="#000000" stroke="#000000" stroke-width="2.5"/>
+<text x="1395.0" y="397.0" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="28" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Diagnose</text>
+<text x="1395.0" y="433.0" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#FFFFFF" text-anchor="middle">lowest_retrieval_row()</text>
+<text x="1395.0" y="475.0" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#FFFFFF" text-anchor="middle">re-run it with the</text>
+<text x="1395.0" y="505.0" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#FFFFFF" text-anchor="middle">state filter, then</text>
+<text x="1395.0" y="535.0" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#FFFFFF" text-anchor="middle">re-score it</text>
+<line x1="252" y1="455" x2="286" y2="455" stroke="#000000" stroke-width="3.5" marker-end="url(#arrow)"/>
+<line x1="542" y1="455" x2="576" y2="455" stroke="#000000" stroke-width="3.5" marker-end="url(#arrow)"/>
+<line x1="952" y1="455" x2="986" y2="455" stroke="#000000" stroke-width="3.5" marker-end="url(#arrow)"/>
+<line x1="1192" y1="455" x2="1226" y2="455" stroke="#000000" stroke-width="3.5" marker-end="url(#arrow)"/>
+<rect x="40" y="842" width="56" height="34" rx="8" fill="#FFFFFF" stroke="#000000" stroke-width="6"/>
+<text x="112" y="868" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#000000" text-anchor="start">the part in focus</text>
+<rect x="376" y="842" width="56" height="34" rx="8" fill="#000000" stroke="#000000" stroke-width="2.5"/>
+<text x="448" y="868" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#000000" text-anchor="start">the result you act on</text>
+<rect x="760" y="842" width="56" height="34" rx="8" fill="#FFFFFF" stroke="#6B7280" stroke-width="3" stroke-dasharray="10 8"/>
+<text x="832" y="868" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#000000" text-anchor="start">context</text>
+</svg>
