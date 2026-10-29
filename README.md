@@ -100,7 +100,7 @@ If a count is 0 or a folder is missing, go back to the notebook step that create
 
 - Watch Module 1. It needs no setup from you — it runs against a finished index the instructor already built.
 - Start Module 2 with `module-2/02_indexing_pipeline.ipynb`. This is where you build the index yourself.
-- Continue to Module 3 with `module-3/03_grounded_and_eval.ipynb`.
+- Before Module 3, run `./infra/setup_module3.sh` once. It adds the chat deployment, a Foundry project, the project's keyless connection to Search, and the roles the agent needs. Role changes take a few minutes. Then continue with `module-3/03_grounded_and_eval.ipynb`.
 
 ## Repo layout
 
@@ -110,6 +110,7 @@ requirements.txt       # pinned Python packages
 .env.example           # copy to .env and fill in
 infra/deploy.sh         # provisions Azure, writes .env, loads the PDFs
 infra/load_corpus.py    # uploads the PDFs to Blob Storage (run by deploy.sh)
+infra/setup_module3.sh  # adds the Foundry project, connection, and roles for Module 3
 data/                   # demo corpus (US state driver's manuals) and download script
 eval/                   # evaluation question set (Module 3)
 setup.sh                # creates .venv and installs the packages

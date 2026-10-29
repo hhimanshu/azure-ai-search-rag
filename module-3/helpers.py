@@ -10,6 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
+from azure.ai.projects import AIProjectClient
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 from azure.search.documents import SearchClient
 from openai import AzureOpenAI, RateLimitError
@@ -29,7 +30,9 @@ openai_client = AzureOpenAI(
     api_version="2024-10-21",
 )
 
-ONYOURDATA_DEPLOYMENT = config.openai_onyourdata_deployment  # gpt-4.1-mini
+project = AIProjectClient(endpoint=config.ai_project_endpoint, credential=credential)
+SEARCH_CONNECTION = "rag-search"  # the Foundry project's connection to the Search service; infra/setup_module3.sh creates it
+
 CHAT_DEPLOYMENT = config.openai_chat_deployment  # gpt-5-mini
 INDEX_NAME = config.search_index_name
 
@@ -42,17 +45,17 @@ EVAL_RESULTS = str(ROOT / "eval" / "eval_results.json")
 CHAT_SEMAPHORE = threading.Semaphore(3)
 
 
-# ---- Clip 1: the managed "on your data" call ----
+# ---- Clip 1: the managed Foundry agent with the Azure AI Search tool ----
 
 
 def print_answer_and_citations(answer, citations):
-    """Chat completion `context.citations`: prints the answer and the start of each cited passage."""
+    """Agent response `url_citation` annotations: prints the answer and the manual each citation names."""
     print("Answer:")
     print(answer)
     print()
     print(f"{len(citations)} citation(s):")
     for c in citations[:5]:
-        print(f"  - {c.get('title')}: {c.get('content', '')[:150].strip()}...")
+        print(f"  - {c.title}")
 
 
 # ---- Clip 2: the grounded pipeline, built by hand ----

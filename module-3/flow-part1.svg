@@ -1,16 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-labelledby="t d">
-<title id="t">Part 1: one managed call retrieves, grounds, and generates</title>
-<desc id="d">A question goes into one Azure OpenAI on your data call. Inside that call, the service retrieves passages from the Search index, grounds the answer in them, and generates a cited answer. The service signs in to Search with its own managed identity. The Search index is shown dashed as context.</desc>
+<title id="t">Part 1: one managed agent call retrieves, grounds, and generates</title>
+<desc id="d">A question goes into one Foundry agent call. Inside that call, the agent retrieves passages from the Search index with the Azure AI Search tool, grounds the answer in them, and generates a cited answer. The Foundry project's connection signs in to Search with a managed identity. The Search index is shown dashed as context.</desc>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#000000"/></marker></defs>
 <rect x="0" y="0" width="1600" height="900" fill="#FFFFFF"/>
-<text x="40" y="70" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="38" font-weight="bold" fill="#000000" text-anchor="start">Part 1: one managed call retrieves, grounds, and generates</text>
+<text x="40" y="70" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="38" font-weight="bold" fill="#000000" text-anchor="start">Part 1: one managed agent call retrieves, grounds, and generates</text>
 <rect x="40" y="330" width="240" height="140" rx="14" fill="#F3F4F6" stroke="#000000" stroke-width="2.5"/>
 <text x="160.0" y="378.0" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="28" font-weight="bold" fill="#000000" text-anchor="middle">Question</text>
 <text x="160.0" y="414.0" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#374151" text-anchor="middle">one driver&#x27;s</text>
 <text x="160.0" y="444.0" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#374151" text-anchor="middle">question</text>
 <rect x="360" y="190" width="880" height="420" rx="14" fill="#FFFFFF" stroke="#000000" stroke-width="7"/>
 <text x="800" y="246" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="30" font-weight="bold" fill="#000000" text-anchor="middle">One call</text>
-<text x="800" y="284" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#000000" text-anchor="middle">chat.completions.create + data_sources</text>
+<text x="800" y="284" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#000000" text-anchor="middle">Foundry agent + Azure AI Search tool</text>
 <rect x="390" y="340" width="250" height="210" rx="14" fill="#F3F4F6" stroke="#000000" stroke-width="2.5"/>
 <text x="515.0" y="438.0" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="28" font-weight="bold" fill="#000000" text-anchor="middle">Retrieve</text>
 <text x="515.0" y="474.0" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#374151" text-anchor="middle">from the index</text>
@@ -32,7 +32,7 @@
 <text x="800.0" y="765.5" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#000000" text-anchor="middle">state-driver-manuals</text>
 <text x="800.0" y="807.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#374151" text-anchor="middle">built in Module 2</text>
 <line x1="800" y1="686" x2="800" y2="614" stroke="#000000" stroke-width="3.5" marker-end="url(#arrow)"/>
-<text x="830" y="656" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#000000" text-anchor="start">system_assigned_managed_identity</text>
+<text x="830" y="656" font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="normal" fill="#000000" text-anchor="start">managed identity connection</text>
 <rect x="40" y="842" width="56" height="34" rx="8" fill="#FFFFFF" stroke="#000000" stroke-width="6"/>
 <text x="112" y="868" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="normal" fill="#000000" text-anchor="start">the part in focus</text>
 <rect x="376" y="842" width="56" height="34" rx="8" fill="#FFFFFF" stroke="#6B7280" stroke-width="3" stroke-dasharray="10 8"/>

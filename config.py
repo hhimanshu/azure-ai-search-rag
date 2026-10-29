@@ -34,7 +34,6 @@ class Config:
     openai_embedding_deployment: str
     openai_embedding_model: str
     openai_chat_deployment: str
-    openai_onyourdata_deployment: str
     ai_project_endpoint: str
     ai_services_endpoint: str
     ai_services_key: str
@@ -61,7 +60,6 @@ def load_config() -> Config:
         openai_embedding_deployment=os.environ["AZURE_OPENAI_EMBEDDING_DEPLOYMENT"],
         openai_embedding_model=os.environ["AZURE_OPENAI_EMBEDDING_MODEL"],
         openai_chat_deployment=os.environ.get("AZURE_OPENAI_CHAT_DEPLOYMENT", "gpt-5-mini"),
-        openai_onyourdata_deployment=os.environ.get("AZURE_OPENAI_ONYOURDATA_DEPLOYMENT", "gpt-4.1-mini"),
         ai_project_endpoint=os.environ.get("AZURE_AI_PROJECT_ENDPOINT", ""),
         ai_services_endpoint=os.environ.get("AZURE_AI_SERVICES_ENDPOINT", ""),
         ai_services_key=os.environ.get("AZURE_AI_SERVICES_KEY", ""),
